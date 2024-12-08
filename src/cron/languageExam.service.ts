@@ -11,14 +11,11 @@ export class LanguageExamService {
 
   public readonly client: Client;
 
-  private readonly genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+  private readonly genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   private readonly model: GenerativeModel;
 
   constructor() {
     this.client = new Client({
-      puppeteer: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
-      },
       authStrategy: new LocalAuth({
         clientId: 'my-notificator',
         dataPath: '.data',
