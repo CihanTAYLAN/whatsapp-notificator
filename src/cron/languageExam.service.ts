@@ -65,7 +65,6 @@ export class LanguageExamService {
   sendMessage = async (number: string, message: string) => {
     try {
       await this.client.sendMessage(number, message);
-      console.log(`Sended ${message}`);
     } catch (error) {
       console.error('an error:', error);
     }
@@ -107,13 +106,16 @@ Ensure the words and sentences are simple and suitable for English learners. Jus
     this.client
       .getState()
       .then(async (state) => {
-        console.log(state);
+        console.log('-------------------------');
+        console.log('state:', state);
         if (state === 'CONNECTED') {
+          console.log('greating message sending:', greating);
           this.sendMessage(
             process.env.GROUP_ID,
             greating + '\n' + (await this.generateMyKeywordsDaily()),
           );
         }
+        console.log('-------------------------');
       })
       .catch((error) => {
         console.error('an error:', error);
