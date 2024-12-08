@@ -103,8 +103,7 @@ Ensure the words and sentences are simple and suitable for English learners. Jus
     return result.response.text();
   }
 
-  @Cron('*/5 * * * * *')
-  async generate(): Promise<void> {
+  async generate(greating: string): Promise<void> {
     this.client
       .getState()
       .then(async (state) => {
@@ -112,12 +111,32 @@ Ensure the words and sentences are simple and suitable for English learners. Jus
         if (state === 'CONNECTED') {
           this.sendMessage(
             process.env.GROUP_ID,
-            await this.generateMyKeywordsDaily(),
+            greating + '\n' + (await this.generateMyKeywordsDaily()),
           );
         }
       })
       .catch((error) => {
         console.error('an error:', error);
       });
+  }
+
+  @Cron('0 0 9 * * *')
+  async sendGoodMorning(): Promise<void> {
+    this.generate('Good morning!');
+  }
+
+  @Cron('0 0 12 * * *')
+  async sendGoodAfternoon(): Promise<void> {
+    this.generate('Good afternoon!');
+  }
+
+  @Cron('0 0 18 * * *')
+  async sendGoodEvening(): Promise<void> {
+    this.generate('Good evening!');
+  }
+
+  @Cron('0 0 21 * * *')
+  async sendGoodNight(): Promise<void> {
+    this.generate('Good night!');
   }
 }
