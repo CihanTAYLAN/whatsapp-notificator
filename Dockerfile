@@ -19,8 +19,6 @@ FROM --platform=linux/amd64 node:20-alpine AS production
 WORKDIR /app
 COPY --chown=node:node --from=BUILD /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=BUILD /usr/src/app/dist ./dist
-COPY --chown=node:node --from=BUILD /usr/src/app/prisma ./prisma
-COPY --chown=node:node ./public ./public
 COPY --from=BUILD /usr/src/app/package.json ./package.json
 
 #ENV NODE_OPTIONS="--openssl-legacy-provider"
