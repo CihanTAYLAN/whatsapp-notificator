@@ -50,11 +50,10 @@ export class LanguageExamService {
     this.client.on('message', async (message) => {
       if (message.body.includes('Generate')) {
         message.reply(
-          await this.generateMyKeywords(
+          await this.generateKeywordsByTheme(
             message.body.split('Generate')[1].trim(),
           ),
         );
-        // this.sendMessage("905322769674-1598985582@g.us", "Test"); // My group id
       }
     });
 
@@ -72,7 +71,7 @@ export class LanguageExamService {
     }
   };
 
-  async generateMyKeywords(theme: string): Promise<string> {
+  async generateKeywordsByTheme(theme: string): Promise<string> {
     const result = await this.model.generateContent(`
 Generate 10 English words and 10 sentences related to ${theme}, along with their Turkish translations. The format should be:
 
@@ -84,17 +83,37 @@ Hello - Merhaba
 How are you? - Nasılsın?
 
 Ensure the words and sentences are simple and suitable for English learners. Just give the output, don't give any explanation. First write the words then the sentences.`);
+
     return result.response.text();
   }
 
-  @Cron('*/3 * * * * *')
+  async generateMyKeywordsDaily(): Promise<string> {
+    const result = await this.model.generateContent(`
+Generate 10 English words and 10 sentences related to random topics, along with their Turkish translations. The format should be:
+
+Word: [English] - [Turkish]
+Sentence: [English sentence] - [Turkish translation]
+
+Examples:
+Hello - Merhaba
+How are you? - Nasılsın?
+
+Ensure the words and sentences are simple and suitable for English learners. Just give the output, don't give any explanation. First write the words then the sentences.`);
+
+    return result.response.text();
+  }
+
+  @Cron('*/5 * * * * *')
   async generate(): Promise<void> {
     this.client
       .getState()
-      .then((state) => {
+      .then(async (state) => {
         console.log(state);
         if (state === 'CONNECTED') {
-          // this.generateMyKeywords('random');
+          this.sendMessage(
+            process.env.GROUP_ID,
+            await this.generateMyKeywordsDaily(),
+          );
         }
       })
       .catch((error) => {
