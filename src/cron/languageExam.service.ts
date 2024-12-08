@@ -16,6 +16,9 @@ export class LanguageExamService {
 
   constructor() {
     this.client = new Client({
+      puppeteer: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+      },
       authStrategy: new LocalAuth({
         clientId: 'my-notificator',
         dataPath: '.data',
