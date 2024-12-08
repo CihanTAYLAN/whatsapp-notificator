@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     if (env.SERVICE_HOOK_URL != null && env.SERVICE_HOOK_URL != '') {
-                        sh "curl -X POST -H 'Content-Type: application/json' -d '{\"service\": \"efohealth\", \"image\": \"${env.DOCKER_REPO}:${env.BUILD_ID}\", \"tag\": \"${env.BUILD_ID}\", \"service_hook_url\": \"${env.SERVICE_HOOK_URL}\"}' ${env.SERVICE_HOOK_URL}"
+                        sh "curl -X POST -H 'Content-Type: application/json' -d '{\"service\": \"${env.PROJECT_KEY}\", \"image\": \"${env.DOCKER_REPO}:${env.BUILD_ID}\", \"tag\": \"${env.BUILD_ID}\", \"service_hook_url\": \"${env.SERVICE_HOOK_URL}\"}' ${env.SERVICE_HOOK_URL}"
                     }
                 }
             }
