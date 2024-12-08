@@ -3,11 +3,11 @@ pipeline {
         label 'docker-agent'
     }
     environment {
-        PROJECT_KEY = "whatsapp-notificator"
+        PROJECT_KEY = "cihan-whatsapp-notificator"
         DOCKER_REPO = "docker.uplide.com/repository/uplide-docker/${PROJECT_KEY}"
         DOCKER_CREDENTIALS_ID = "nexus"
         GITHUB_CREDENTIALS_ID = 'github'
-        SERVICE_HOOK_URL = 'https://portainer.uplide.com/api/webhooks/bce872fa-711d-4b34-bb5d-123'
+        SERVICE_HOOK_URL = 'https://portainer.uplide.com/api/webhooks/34d55b0b-d26a-44f7-bb15-5a51573c845c'
         // SONARQUBE_URL = 'https://sonarqube.uplide.com'
     }
     stages {
