@@ -15,6 +15,14 @@ COPY --chown=node:node . .
 RUN yarn build
 
 FROM --platform=linux/amd64 node:20-alpine AS production
+
+ENV CHROME_BIN=/usr/bin/chromium-browser
+RUN echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+    chromium@edge \
+    nss@edge
+
 WORKDIR /app
 COPY --chown=node:node --from=BUILD /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=BUILD /usr/src/app/dist ./dist
