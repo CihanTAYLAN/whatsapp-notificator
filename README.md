@@ -1,1 +1,1 @@
-# whatsapp-notificator
+Whatsapp Notificator App

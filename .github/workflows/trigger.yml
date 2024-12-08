@@ -1,0 +1,17 @@
+name: Jenkins Trigger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  send_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Send HTTP Trigger request with curl
+        run: |
+          curl https://jenkins.uplide.com/generic-webhook-trigger/invoke?token=${{ secrets.JOB_TOKEN }} -i -k
