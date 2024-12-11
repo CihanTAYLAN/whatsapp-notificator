@@ -87,8 +87,9 @@ Ensure the words and sentences are simple and suitable for English learners. Jus
   }
 
   async generateMyKeywordsDaily(): Promise<string> {
+    const charNumber = Math.floor(Math.random() * 26) + 1;
     const result = await this.model.generateContent(`
-Generate 10 English words and 10 sentences related to random topics, along with their Turkish translations. The format should be:
+Generate 10 English words and 10 sentences, starting with the ${charNumber}rd letter of the alphabet, along with their Turkish translations. The format should be:
 
 Word: [English] - [Turkish]
 Sentence: [English sentence] - [Turkish translation]
