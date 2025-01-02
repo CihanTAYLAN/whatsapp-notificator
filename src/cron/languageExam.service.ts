@@ -123,23 +123,8 @@ Ensure the words and sentences are simple and suitable for English learners. Jus
       });
   }
 
-  @Cron('0 0 9 * * *')
-  async sendGoodMorning(): Promise<void> {
-    this.generate('Good morning!');
-  }
-
-  @Cron('0 0 12 * * *')
-  async sendGoodAfternoon(): Promise<void> {
-    this.generate('Good afternoon!');
-  }
-
   @Cron('0 0 18 * * *')
   async sendGoodEvening(): Promise<void> {
     this.generate('Good evening!');
-  }
-
-  @Cron('0 0 21 * * *')
-  async sendGoodNight(): Promise<void> {
-    this.generate('Good night!');
   }
 }
